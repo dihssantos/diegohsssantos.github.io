@@ -1,0 +1,965 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Diego Henrique - Gestão de Projetos Culturais</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #1a1a1a;
+            --accent: #ff6b35;
+            --accent-light: #ff8c5f;
+            --background: #fafafa;
+            --card-bg: #ffffff;
+            --text: #2d2d2d;
+            --text-light: #666666;
+            --border: #e0e0e0;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            background: var(--background);
+            color: var(--text);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* Header */
+        header {
+            background: var(--card-bg);
+            border-bottom: 1px solid var(--border);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            backdrop-filter: blur(10px);
+            background: rgba(255, 255, 255, 0.95);
+        }
+
+        nav {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 1.5rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--primary);
+            letter-spacing: -0.5px;
+        }
+
+        .logo span {
+            color: var(--accent);
+        }
+
+        nav ul {
+            list-style: none;
+            display: flex;
+            gap: 2.5rem;
+        }
+
+        nav a {
+            text-decoration: none;
+            color: var(--text);
+            font-weight: 500;
+            transition: color 0.3s ease;
+            position: relative;
+        }
+
+        nav a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--accent);
+            transition: width 0.3s ease;
+        }
+
+        nav a:hover::after {
+            width: 100%;
+        }
+
+        nav a:hover {
+            color: var(--accent);
+        }
+
+        /* Hero Section */
+        .hero {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 8rem 2rem 6rem;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+        }
+
+        .hero-content h1 {
+            font-size: 3.5rem;
+            font-weight: 800;
+            line-height: 1.1;
+            margin-bottom: 1.5rem;
+            color: var(--primary);
+        }
+
+        .hero-content .highlight {
+            color: var(--accent);
+        }
+
+        .hero-content p {
+            font-size: 1.25rem;
+            color: var(--text-light);
+            margin-bottom: 2.5rem;
+            line-height: 1.8;
+        }
+
+        .cta-button {
+            display: inline-block;
+            padding: 1rem 2.5rem;
+            background: var(--accent);
+            color: white;
+            text-decoration: none;
+            font-weight: 600;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(255, 107, 53, 0.3);
+        }
+
+        .cta-button:hover {
+            background: var(--accent-light);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(255, 107, 53, 0.4);
+        }
+
+        .hero-visual {
+            background: linear-gradient(135deg, var(--accent) 0%, var(--accent-light) 100%);
+            height: 400px;
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 8rem;
+            color: white;
+            font-weight: 800;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.1);
+        }
+
+        /* About Section */
+        .about {
+            background: var(--card-bg);
+            padding: 6rem 2rem;
+        }
+
+        .about-content {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .section-title {
+            font-size: 2.5rem;
+            font-weight: 800;
+            margin-bottom: 3rem;
+            text-align: center;
+            color: var(--primary);
+        }
+
+        .about-text {
+            font-size: 1.125rem;
+            line-height: 1.9;
+            color: var(--text);
+            margin-bottom: 2rem;
+        }
+
+        .expertise {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .expertise-item {
+            text-align: center;
+            padding: 2rem;
+            background: var(--background);
+            border-radius: 12px;
+            transition: transform 0.3s ease;
+        }
+
+        .expertise-item:hover {
+            transform: translateY(-5px);
+        }
+
+        .expertise-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+
+        .expertise-item h3 {
+            font-size: 1.125rem;
+            margin-bottom: 0.5rem;
+            color: var(--primary);
+        }
+
+        .expertise-item p {
+            color: var(--text-light);
+            font-size: 0.95rem;
+        }
+
+        /* Projects Section */
+        .projects {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 6rem 2rem;
+        }
+
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(450px, 1fr));
+            gap: 3rem;
+            margin-top: 3rem;
+        }
+
+        .project-card {
+            background: var(--card-bg);
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+            transition: all 0.3s ease;
+            border: 1px solid var(--border);
+        }
+
+        .project-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.12);
+        }
+
+        .project-image {
+            height: 250px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 4rem;
+            color: white;
+        }
+
+        .project-card:nth-child(2) .project-image {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+        }
+
+        .project-content {
+            padding: 2rem;
+        }
+
+        .project-tag {
+            display: inline-block;
+            padding: 0.4rem 1rem;
+            background: rgba(255, 107, 53, 0.1);
+            color: var(--accent);
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+        }
+
+        .project-content h3 {
+            font-size: 1.75rem;
+            margin-bottom: 1rem;
+            color: var(--primary);
+        }
+
+        .project-content p {
+            color: var(--text-light);
+            margin-bottom: 1.5rem;
+            line-height: 1.8;
+        }
+
+        .project-roles {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .role-badge {
+            padding: 0.4rem 0.8rem;
+            background: var(--background);
+            border-radius: 6px;
+            font-size: 0.85rem;
+            color: var(--text);
+        }
+
+        .project-link {
+            color: var(--accent);
+            text-decoration: none;
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: gap 0.3s ease;
+        }
+
+        .project-link:hover {
+            gap: 1rem;
+        }
+
+        /* Contact Section */
+        .contact {
+            background: var(--primary);
+            color: white;
+            padding: 6rem 2rem;
+            text-align: center;
+        }
+
+        .contact h2 {
+            font-size: 2.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .contact p {
+            font-size: 1.25rem;
+            margin-bottom: 3rem;
+            opacity: 0.9;
+        }
+
+        .contact-links {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .contact-link {
+            padding: 1rem 2rem;
+            background: white;
+            color: var(--primary);
+            text-decoration: none;
+            border-radius: 8px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .contact-link:hover {
+            background: var(--accent);
+            color: white;
+            transform: translateY(-3px);
+        }
+
+        /* Experience Section */
+        .experience {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 6rem 2rem;
+        }
+
+        .timeline {
+            position: relative;
+            padding-left: 3rem;
+            margin-top: 3rem;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            width: 3px;
+            background: var(--accent);
+        }
+
+        .timeline-item {
+            position: relative;
+            margin-bottom: 3rem;
+            padding-left: 2rem;
+        }
+
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: -3.5rem;
+            top: 0;
+            width: 16px;
+            height: 16px;
+            border-radius: 50%;
+            background: var(--accent);
+            border: 4px solid var(--background);
+        }
+
+        .timeline-item h3 {
+            font-size: 1.5rem;
+            color: var(--primary);
+            margin-bottom: 0.5rem;
+        }
+
+        .timeline-period {
+            color: var(--accent);
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            font-size: 0.95rem;
+        }
+
+        .timeline-location {
+            color: var(--text-light);
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+        }
+
+        .timeline-item ul {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .timeline-item li {
+            padding-left: 1.5rem;
+            position: relative;
+            margin-bottom: 0.75rem;
+            color: var(--text);
+            line-height: 1.7;
+        }
+
+        .timeline-item li::before {
+            content: '▸';
+            position: absolute;
+            left: 0;
+            color: var(--accent);
+        }
+
+        /* Skills Section */
+        .skills {
+            background: var(--card-bg);
+            padding: 6rem 2rem;
+        }
+
+        .skills-content {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 3rem;
+            margin-top: 3rem;
+        }
+
+        .skill-category h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1.5rem;
+            color: var(--primary);
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .skill-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.75rem;
+        }
+
+        .skill-tag {
+            padding: 0.6rem 1.2rem;
+            background: var(--background);
+            border: 2px solid var(--border);
+            border-radius: 25px;
+            font-size: 0.9rem;
+            font-weight: 500;
+            color: var(--text);
+            transition: all 0.3s ease;
+        }
+
+        .skill-tag:hover {
+            border-color: var(--accent);
+            color: var(--accent);
+            transform: translateY(-2px);
+        }
+
+        /* Download CV */
+        .download-cv {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.75rem;
+            padding: 1rem 2.5rem;
+            background: white;
+            color: var(--primary);
+            text-decoration: none;
+            font-weight: 600;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+            border: 2px solid white;
+            margin-top: 1rem;
+        }
+
+        .download-cv:hover {
+            background: transparent;
+            color: white;
+            transform: translateY(-3px);
+        }
+
+        /* Education Section */
+        .education {
+            background: var(--card-bg);
+            padding: 6rem 2rem;
+        }
+
+        .education-content {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .education-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .education-card {
+            background: var(--background);
+            padding: 2rem;
+            border-radius: 12px;
+            border-left: 4px solid var(--accent);
+            transition: transform 0.3s ease;
+        }
+
+        .education-card:hover {
+            transform: translateX(8px);
+        }
+
+        .education-card h3 {
+            font-size: 1.25rem;
+            color: var(--primary);
+            margin-bottom: 0.5rem;
+        }
+
+        .education-institution {
+            color: var(--accent);
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        .education-year {
+            color: var(--text-light);
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+        }
+
+        .education-description {
+            color: var(--text);
+            line-height: 1.7;
+            font-size: 0.95rem;
+        }
+
+        /* CTA Banner */
+        .cta-banner {
+            background: linear-gradient(135deg, var(--accent) 0%, var(--accent-light) 100%);
+            padding: 4rem 2rem;
+            text-align: center;
+            color: white;
+        }
+
+        .cta-banner h2 {
+            font-size: 2.25rem;
+            margin-bottom: 1rem;
+            font-weight: 800;
+        }
+
+        .cta-banner p {
+            font-size: 1.125rem;
+            margin-bottom: 2rem;
+            opacity: 0.95;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .cta-buttons {
+            display: flex;
+            gap: 1.5rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .cta-primary {
+            padding: 1.125rem 3rem;
+            background: white;
+            color: var(--accent);
+            text-decoration: none;
+            font-weight: 700;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+            font-size: 1.05rem;
+        }
+
+        .cta-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+        }
+
+        .cta-secondary {
+            padding: 1.125rem 3rem;
+            background: transparent;
+            color: white;
+            text-decoration: none;
+            font-weight: 700;
+            border-radius: 8px;
+            border: 2px solid white;
+            transition: all 0.3s ease;
+            font-size: 1.05rem;
+        }
+
+        .cta-secondary:hover {
+            background: white;
+            color: var(--accent);
+            transform: translateY(-3px);
+        }
+
+        /* Footer */
+        footer {
+            background: var(--card-bg);
+            padding: 2rem;
+            text-align: center;
+            color: var(--text-light);
+            border-top: 1px solid var(--border);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hero {
+                grid-template-columns: 1fr;
+                padding: 4rem 1.5rem 3rem;
+            }
+
+            .hero-content h1 {
+                font-size: 2.5rem;
+            }
+
+            .hero-visual {
+                height: 300px;
+                font-size: 5rem;
+            }
+
+            nav ul {
+                gap: 1.5rem;
+            }
+
+            .timeline {
+                padding-left: 2rem;
+            }
+
+            .timeline-item {
+                padding-left: 1.5rem;
+            }
+
+            .skills-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .education-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .cta-banner h2 {
+                font-size: 1.75rem;
+            }
+
+            .cta-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .cta-primary, .cta-secondary {
+                width: 100%;
+                max-width: 300px;
+            }
+
+            .projects-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .expertise {
+                grid-template-columns: 1fr;
+            }
+
+            .section-title {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav>
+            <div class="logo">DH<span>.</span></div>
+            <ul>
+                <li><a href="#sobre">Sobre</a></li>
+                <li><a href="#experiencia">Experiência</a></li>
+                <li><a href="#projetos">Projetos</a></li>
+                <li><a href="#formacao">Formação</a></li>
+                <li><a href="#contato">Contato</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <section class="hero">
+        <div class="hero-content">
+            <h1>Diego Henrique<br><span class="highlight">de Souza Santos</span></h1>
+            <p>Gestor de Projetos Culturais com experiência em educação, arte-educação e coordenação de projetos que transformam realidades através da cultura.</p>
+            <a href="#projetos" class="cta-button">Ver Projetos</a>
+        </div>
+        <div class="hero-visual">DH</div>
+    </section>
+
+    <section class="about" id="sobre">
+        <div class="about-content">
+            <h2 class="section-title">Sobre</h2>
+            <p class="about-text">
+                Profissional dedicado à gestão de projetos culturais e educacionais, com forte atuação na intersecção entre arte, ciência e educação. Minha trajetória combina expertise em redação de projetos, gestão orçamentária, coordenação de produção e execução de iniciativas que promovem acesso à cultura e ao conhecimento.
+            </p>
+            <p class="about-text">
+                Com experiência consolidada em organizações da sociedade civil e projetos independentes, desenvolvo soluções criativas que conectam pessoas, instituições e comunidades através de propostas culturais e educativas inovadoras.
+            </p>
+            
+            <div class="expertise">
+                <div class="expertise-item">
+                    <div class="expertise-icon">📋</div>
+                    <h3>Gestão de Projetos</h3>
+                    <p>Planejamento, orçamento e coordenação de projetos culturais</p>
+                </div>
+                <div class="expertise-item">
+                    <div class="expertise-icon">🎨</div>
+                    <h3>Arte-Educação</h3>
+                    <p>Mediação cultural e desenvolvimento de ações educativas</p>
+                </div>
+                <div class="expertise-item">
+                    <div class="expertise-icon">✍️</div>
+                    <h3>Redação & Edição</h3>
+                    <p>Elaboração e submissão de projetos a editais e leis de incentivo</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="experience" id="experiencia">
+        <h2 class="section-title">Experiência Profissional</h2>
+        <div class="timeline">
+            <div class="timeline-item">
+                <h3>Coordenador de Produção & Gestor de Projetos</h3>
+                <div class="timeline-period">2023 - 2024</div>
+                <div class="timeline-location">Projeto Oculta - Exposição de Artes Visuais</div>
+                <ul>
+                    <li>Redação completa do projeto cultural com fundamentação teórica e metodológica</li>
+                    <li>Elaboração e gestão de orçamento detalhado (R$ 150.000+)</li>
+                    <li>Submissão do projeto a editais de fomento à cultura (Lei Aldir Blanc, ProAC)</li>
+                    <li>Coordenação de equipe multidisciplinar (artistas, curadores, produtores)</li>
+                    <li>Gestão de prazos, entregas e prestação de contas</li>
+                    <li>Articulação com instituições culturais e espaços expositivos</li>
+                </ul>
+            </div>
+
+            <div class="timeline-item">
+                <h3>Educador de Campo</h3>
+                <div class="timeline-period">2021 - 2023 (2 anos)</div>
+                <div class="timeline-location">OSC Imagemagica</div>
+                <ul>
+                    <li>Execução de projetos educacionais e culturais para 200+ crianças e jovens</li>
+                    <li>Desenvolvimento de metodologias de arte-educação e mediação cultural</li>
+                    <li>Planejamento e condução de oficinas criativas e atividades pedagógicas</li>
+                    <li>Articulação com escolas, famílias e comunidades locais</li>
+                    <li>Produção de relatórios e documentação de atividades</li>
+                    <li>Colaboração em captação de recursos e elaboração de projetos</li>
+                </ul>
+            </div>
+
+            <div class="timeline-item">
+                <h3>Arte-Educador</h3>
+                <div class="timeline-period">2019 - 2021</div>
+                <div class="timeline-location">Projetos Culturais Diversos</div>
+                <ul>
+                    <li>Mediação cultural em exposições e eventos artísticos</li>
+                    <li>Criação de materiais educativos e roteiros de mediação</li>
+                    <li>Capacitação de educadores e monitores culturais</li>
+                    <li>Desenvolvimento de ações educativas em museus e centros culturais</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <section class="skills">
+        <div class="skills-content">
+            <h2 class="section-title">Competências & Habilidades</h2>
+            <div class="skills-grid">
+                <div class="skill-category">
+                    <h3>💼 Gestão de Projetos</h3>
+                    <div class="skill-list">
+                        <span class="skill-tag">Planejamento Estratégico</span>
+                        <span class="skill-tag">Gestão Orçamentária</span>
+                        <span class="skill-tag">Captação de Recursos</span>
+                        <span class="skill-tag">Redação de Projetos</span>
+                        <span class="skill-tag">Leis de Incentivo</span>
+                        <span class="skill-tag">Prestação de Contas</span>
+                        <span class="skill-tag">Coordenação de Equipes</span>
+                        <span class="skill-tag">Gestão de Prazos</span>
+                    </div>
+                </div>
+
+                <div class="skill-category">
+                    <h3>🎨 Cultura & Educação</h3>
+                    <div class="skill-list">
+                        <span class="skill-tag">Arte-Educação</span>
+                        <span class="skill-tag">Mediação Cultural</span>
+                        <span class="skill-tag">Curadoria Educativa</span>
+                        <span class="skill-tag">Desenvolvimento de Oficinas</span>
+                        <span class="skill-tag">Metodologias Ativas</span>
+                        <span class="skill-tag">Produção de Conteúdo</span>
+                        <span class="skill-tag">Acessibilidade Cultural</span>
+                    </div>
+                </div>
+
+                <div class="skill-category">
+                    <h3>📝 Comunicação & Redação</h3>
+                    <div class="skill-list">
+                        <span class="skill-tag">Redação Técnica</span>
+                        <span class="skill-tag">Relatórios</span>
+                        <span class="skill-tag">Edição de Textos</span>
+                        <span class="skill-tag">Apresentações</span>
+                        <span class="skill-tag">Documentação de Projetos</span>
+                        <span class="skill-tag">Comunicação Institucional</span>
+                    </div>
+                </div>
+
+                <div class="skill-category">
+                    <h3>🤝 Relacionamento & Articulação</h3>
+                    <div class="skill-list">
+                        <span class="skill-tag">Articulação Institucional</span>
+                        <span class="skill-tag">Networking</span>
+                        <span class="skill-tag">Negociação</span>
+                        <span class="skill-tag">Trabalho em Equipe</span>
+                        <span class="skill-tag">Gestão de Stakeholders</span>
+                        <span class="skill-tag">Mobilização Comunitária</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="education" id="formacao">
+        <div class="education-content">
+            <h2 class="section-title">Formação Acadêmica</h2>
+            <div class="education-grid">
+                <div class="education-card">
+                    <h3>Bacharelado e Licenciatura em História</h3>
+                    <div class="education-institution">Pontifícia Universidade Católica de São Paulo (PUC-SP)</div>
+                    <div class="education-year">2009 - 2015</div>
+                    <p class="education-description">
+                        Formação ampla em pesquisa histórica, análise documental e desenvolvimento de narrativas. Base sólida para atuação em projetos culturais, educacionais e patrimoniais, com ênfase em metodologias de ensino e mediação cultural.
+                    </p>
+                </div>
+
+                <div class="education-card">
+                    <h3>Gestão de Projetos Culturais</h3>
+                    <div class="education-institution">Escult - Escola de Cultura</div>
+                    <div class="education-year">2025 · 160 horas</div>
+                    <p class="education-description">
+                        Capacitação especializada em planejamento, elaboração, execução e prestação de contas de projetos culturais. Abordagem prática sobre leis de incentivo, captação de recursos, orçamento e gestão de equipes em projetos culturais.
+                    </p>
+                </div>
+
+                <div class="education-card">
+                    <h3>Analista e Parecerista de Projetos Culturais</h3>
+                    <div class="education-institution">Escult - Escola de Cultura</div>
+                    <div class="education-year">2025 · 160 horas</div>
+                    <p class="education-description">
+                        Formação técnica em análise, avaliação e emissão de pareceres sobre projetos culturais. Desenvolvimento de competências críticas para avaliação de viabilidade, impacto cultural e adequação a editais e políticas públicas de cultura.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="cta-banner">
+        <h2>Procurando um Gestor Cultural para sua Equipe?</h2>
+        <p>
+            Trago experiência comprovada em gestão de projetos, captação de recursos e execução de iniciativas culturais e educacionais que transformam realidades. Vamos conversar sobre como posso contribuir com sua organização.
+        </p>
+        <div class="cta-buttons">
+            <a href="mailto:diegohssantos@outlook.com" class="cta-primary">📧 Entrar em Contato</a>
+            <a href="https://drive.google.com/file/d/1UXp92bZwUtBD3Jh3YdumpB6p3GOj06KK/view?usp=sharing" class="cta-secondary" target="_blank">📄 Baixar Currículo</a>
+        </div>
+    </section>
+
+    <section class="projects" id="projetos">
+        <h2 class="section-title">Projetos em Destaque</h2>
+        <div class="projects-grid">
+            <article class="project-card">
+                <div class="project-image">🔬</div>
+                <div class="project-content">
+                    <span class="project-tag">Exposição</span>
+                    <h3>Projeto Oculta</h3>
+                    <p>Exposição de artes visuais que explora a beleza microscópica da microbiologia, conectando arte e ciência em uma experiência visual única. Projeto contempla pesquisa artística, curadoria e mediação cultural.</p>
+                    
+                    <div class="project-roles">
+                        <span class="role-badge">Redação de Projeto</span>
+                        <span class="role-badge">Edição</span>
+                        <span class="role-badge">Gestão de Orçamentos</span>
+                        <span class="role-badge">Submissão a Editais</span>
+                        <span class="role-badge">Coordenação de Produção</span>
+                    </div>
+                    
+                    <a href="#" class="project-link">Saiba mais →</a>
+                </div>
+            </article>
+
+            <article class="project-card">
+                <div class="project-image">🌟</div>
+                <div class="project-content">
+                    <span class="project-tag">Educação Cultural</span>
+                    <h3>Educador de Campo - Imagemagica</h3>
+                    <p>Atuação por 2 anos como educador de campo na OSC Imagemagica, desenvolvendo e executando projetos educacionais que promovem acesso à cultura, arte e conhecimento para crianças e jovens em situação de vulnerabilidade social.</p>
+                    
+                    <div class="project-roles">
+                        <span class="role-badge">Educação de Campo</span>
+                        <span class="role-badge">Arte-Educação</span>
+                        <span class="role-badge">Mediação Cultural</span>
+                        <span class="role-badge">Execução de Projetos</span>
+                    </div>
+                    
+                    <a href="#" class="project-link">Saiba mais →</a>
+                </div>
+            </article>
+        </div>
+    </section>
+
+    <section class="contact" id="contato">
+        <h2>Vamos Conversar?</h2>
+        <p>Interessado em colaborar ou conhecer mais sobre meu trabalho?</p>
+        <div class="contact-links">
+            <a href="mailto:diegohssantos@outlook.com" class="contact-link">📧 Email</a>
+            <a href="https://www.linkedin.com/in/diegohsssantos/" target="_blank" class="contact-link">💼 LinkedIn</a>
+            <a href="https://wa.me/5511962005228" target="_blank" class="contact-link">📱 WhatsApp</a>
+        </div>
+        <a href="https://drive.google.com/file/d/1UXp92bZwUtBD3Jh3YdumpB6p3GOj06KK/view?usp=sharing" class="download-cv" target="_blank">📄 Download do Currículo (PDF)</a>
+    </section>
+
+    <footer>
+        <p>&copy; 2026 Diego Henrique de Souza Santos - Gestor de Projetos Culturais</p>
+        <p style="margin-top: 0.5rem; font-size: 0.9rem;">
+            <a href="https://www.itaucultural.org.br" target="_blank" style="color: var(--text-light); text-decoration: none; margin: 0 0.5rem;">Itaú Cultural</a> | 
+            <a href="https://www.sescsp.org.br" target="_blank" style="color: var(--text-light); text-decoration: none; margin: 0 0.5rem;">Sesc SP</a> | 
+            <a href="https://www.institutotomieohtake.org.br" target="_blank" style="color: var(--text-light); text-decoration: none; margin: 0 0.5rem;">Instituto Tomie Ohtake</a>
+        </p>
+    </footer>
+</body>
+</html>
